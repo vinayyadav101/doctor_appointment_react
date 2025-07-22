@@ -1,4 +1,4 @@
-import { Box, Button, Link, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Button, ButtonBase, ButtonGroup, CardMedia, Link, Rating, Typography, useMediaQuery, useTheme } from '@mui/material'
 import BanerImage from '../asset/Baner.png'
 import { FaHeartbeat } from "react-icons/fa";
 import { GiBrain } from "react-icons/gi";
@@ -8,6 +8,7 @@ import { MdBloodtype } from "react-icons/md";
 import { LuStethoscope } from "react-icons/lu";
 import { FaRegEye } from "react-icons/fa";
 import { FaRadiationAlt } from "react-icons/fa";
+import DoctorImage from "../asset/images (2).jpeg"
 
 export default function HomePage() {
     const emergencyNumber = 7046816857;
@@ -48,38 +49,38 @@ export default function HomePage() {
                 </Box>
                 <Box component="section" sx={{ p: 2, px:SmallSizeCss.perentDiv  ,display:"flex" , flexDirection:"row" , flexWrap:"wrap", gap:SmallSizeCss.gap, textAlign:"center", justifyContent:'center'}}>
                        <div className={`flex flex-col justify-center items-center rounded-2xl  bg-blue-50 ${SmallSizeCss.div} `}>
-                            <FaHeartbeat size={SmallSizeCss.size} color="blue" />
+                            <FaHeartbeat size={SmallSizeCss.size} color="#1976d2"  />
                             <Typography className={SmallSizeCss.fontSize} variant='p'>
                                 Cardilogy
                             </Typography>
                        </div>
                        <div className={`flex flex-col justify-center items-center rounded-2xl  bg-blue-50 ${SmallSizeCss.div} `}>
-                            <GiBrain size={SmallSizeCss.size} color="blue"/>
+                            <GiBrain size={SmallSizeCss.size} color="#1976d2"/>
                             <Typography className={SmallSizeCss.fontSize} variant='p'>
                                 Neurology
                             </Typography>
                        </div>
                        
                        <div className={`flex flex-col justify-center items-center rounded-2xl  bg-blue-50 ${SmallSizeCss.div} `}>
-                            <GiKneeCap size={SmallSizeCss.size} color="blue"/>
+                            <GiKneeCap size={SmallSizeCss.size} color="#1976d2"/>
                             <Typography className={SmallSizeCss.fontSize} variant='p'>
                                 Orthopedics
                             </Typography>
                        </div>
                        <div className={`flex flex-col justify-center items-center rounded-2xl  bg-blue-50 ${SmallSizeCss.div} `}>
-                            <MdFace size={SmallSizeCss.size} color="blue"/>
+                            <MdFace size={SmallSizeCss.size} color="#1976d2"/>
                             <Typography className={SmallSizeCss.fontSize} variant='p'>
                                 pediatrics
                             </Typography>
                        </div>
                        <div className={`flex flex-col justify-center items-center rounded-2xl  bg-blue-50 ${SmallSizeCss.div} `}>
-                            <MdBloodtype size={SmallSizeCss.size} color="blue"/>
+                            <MdBloodtype size={SmallSizeCss.size} color="#1976d2"/>
                             <Typography className={SmallSizeCss.fontSize} variant='p'>
                                 Blood Bank
                             </Typography>
                        </div>
                        <div className={`flex flex-col justify-center items-center rounded-2xl  bg-blue-50 ${SmallSizeCss.div} `}>
-                            <LuStethoscope size={SmallSizeCss.size} color="blue"/>
+                            <LuStethoscope size={SmallSizeCss.size} color="#1976d2"/>
                             <Typography className={SmallSizeCss.fontSize} variant='p'>
                                 Gernal <br />Medicline
                             </Typography>
@@ -91,7 +92,7 @@ export default function HomePage() {
                             </Typography>
                        </div>
                        <div className={`flex flex-col justify-center items-center rounded-2xl  bg-blue-50 ${SmallSizeCss.div} `}>
-                            <FaRadiationAlt size={SmallSizeCss.size} color="blue"/>
+                            <FaRadiationAlt size={SmallSizeCss.size} color="#1976d2"/>
                             <Typography className={SmallSizeCss.fontSize} variant='p'>
                                 Radilogy
                             </Typography>
@@ -101,6 +102,38 @@ export default function HomePage() {
                         <Link component="button" variant="body2">
                              View All Services
                         </Link> 
+            </div>
+            <div className='mt-8'>
+                <Box component="section" sx={{ p: 2, textAlign:"center"}}>
+                        <Typography variant={isSmall ? 'h5' : 'h3'}  sx={{letterSpacing:"5px"}}>
+                            Top Rated Doctors
+                        </Typography>
+                </Box>
+                <Box component="section" sx={{ p: 2, border: '1px dashed grey', textAlign:"center", display:'flex', flexDirection:'row', flexWrap:'wrap', gap:SmallSizeCss.gap , justifyContent:"center"}}>
+                    <div 
+                        className='flex flex-col p-2 border-black border-2 relative gap-2'
+                    >
+                        <CardMedia
+                          component="img"
+                          sx={{maxHeight:"298px" , maxWidth:"240px"}}
+                          image={DoctorImage}
+                          alt="Paella dish"
+                        />
+                        <Box component="div" className='flex flex-col'>
+                            <Typography variant='p' className={SmallSizeCss.fontSize}>
+                                Rita reporter
+                            </Typography>
+                            <Typography variant='p' className='font-light'>
+                                Cardilogy
+                            </Typography>
+                        </Box>
+                        <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                        <ButtonGroup className='w-[100%] flex flex-row justify-evenly'>
+                            <Button variant='contained'>Profile</Button>
+                            <Button variant='outlined'>Applointment</Button>
+                        </ButtonGroup>
+                    </div>
+                </Box>
             </div>
         </div>
     )

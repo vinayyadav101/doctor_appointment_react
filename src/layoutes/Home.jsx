@@ -83,7 +83,7 @@ export default function Layout({children}){
 
   
   return (
-<div className='min-h-[100vh]'>
+<div className='min-h-[100vh] bg-white text-black'>
     {/* // top navigation bar  */}
     <AppBar position="sticky">
       <Container maxWidth="xl">
@@ -198,7 +198,7 @@ export default function Layout({children}){
               {children}
     {/* fottor for both screen */}
    <footer className="w-[100%] ">
-      <div className='footer sm:footer-horizontal  bg-blue-600 text-white tracking-widest text-lg p-10'>
+      <div className='footer sm:footer-horizontal  my-bg-blue text-white tracking-widest text-lg p-10'>
                <aside>
     <svg
       width="50"
