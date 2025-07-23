@@ -109,9 +109,9 @@ export default function HomePage() {
                             Top Rated Doctors
                         </Typography>
                 </Box>
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey', textAlign:"center", display:'flex', flexDirection:'row', flexWrap:'wrap', gap:SmallSizeCss.gap , justifyContent:"center"}}>
+                <Box component="section" sx={{ p: 2, textAlign:"center", display:'flex', flexDirection:'row', flexWrap:'wrap', gap:isSmall ? 3 : 6 , justifyContent:"center"}}>
                     <div 
-                        className='flex flex-col p-2 border-black border-2 relative gap-2'
+                        className='flex flex-col p-2   relative gap-2 max-w-[300px] mx-h-[400px] justify-center items-center shadow-xl/30 rounded-xl py-4 ring '
                     >
                         <CardMedia
                           component="img"
@@ -120,17 +120,63 @@ export default function HomePage() {
                           alt="Paella dish"
                         />
                         <Box component="div" className='flex flex-col'>
-                            <Typography variant='p' className={SmallSizeCss.fontSize}>
-                                Rita reporter
+                            <Typography variant='p' className={`${SmallSizeCss.fontSize} mx-8`}>
+                                alsdfhjka afkjha kfhkjahfk akjh
                             </Typography>
                             <Typography variant='p' className='font-light'>
                                 Cardilogy
                             </Typography>
                         </Box>
                         <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
-                        <ButtonGroup className='w-[100%] flex flex-row justify-evenly'>
+                        <ButtonGroup className='w-[100%] flex flex-row justify-center'>
                             <Button variant='contained'>Profile</Button>
-                            <Button variant='outlined'>Applointment</Button>
+                            <Button variant='outlined'>Appointment</Button>
+                        </ButtonGroup>
+                    </div>
+                    <div 
+                        className='flex flex-col p-2  relative gap-2 max-w-[300px] mx-h-[400px] justify-center items-center shadow-xl/30 rounded-xl py-4 ring '
+                    >
+                        <CardMedia
+                          component="img"
+                          sx={{maxHeight:"298px" , maxWidth:"240px"}}
+                          image={DoctorImage}
+                          alt="Paella dish"
+                        />
+                        <Box component="div" className='flex flex-col'>
+                            <Typography variant='p' className={`${SmallSizeCss.fontSize} mx-8`}>
+                                alsdfhjka afkjha kfhkjahfk akjh
+                            </Typography>
+                            <Typography variant='p' className='font-light'>
+                                Cardilogy
+                            </Typography>
+                        </Box>
+                        <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                        <ButtonGroup className='w-[100%] flex flex-row justify-center'>
+                            <Button variant='contained'>Profile</Button>
+                            <Button variant='outlined'>Appointment</Button>
+                        </ButtonGroup>
+                    </div>
+                    <div 
+                        className='flex flex-col p-2 relative gap-2 max-w-[300px] mx-h-[400px] justify-center items-center shadow-xl/30 rounded-xl py-4 ring '
+                    >
+                        <CardMedia
+                          component="img"
+                          sx={{maxHeight:"298px" , maxWidth:"240px"}}
+                          image={DoctorImage}
+                          alt="Paella dish"
+                        />
+                        <Box component="div" className='flex flex-col'>
+                            <Typography variant='p' className={`${SmallSizeCss.fontSize} mx-8`}>
+                                alsdfhjka afkjha kfhkjahfk akjh
+                            </Typography>
+                            <Typography variant='p' className='font-light'>
+                                Cardilogy
+                            </Typography>
+                        </Box>
+                        <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                        <ButtonGroup className='w-[100%] flex flex-row justify-center'>
+                            <Button variant='contained'>Profile</Button>
+                            <Button variant='outlined'>Appointment</Button>
                         </ButtonGroup>
                     </div>
                 </Box>
