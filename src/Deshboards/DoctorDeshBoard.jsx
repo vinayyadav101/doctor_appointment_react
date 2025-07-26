@@ -2,7 +2,7 @@ import { Box, Button, ButtonGroup, Typography, useMediaQuery, useTheme } from "@
 
 export default function DoctorDeshBoard(){
         const theme = useTheme();
-    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+    const isSmall = useMediaQuery(theme.break+points.down('sm'));
     return(
         <div className="relative mb-5 mt-5">
             <Box component='section' sx={{p:2}}>
@@ -26,22 +26,22 @@ export default function DoctorDeshBoard(){
                                 "&:hover::after": {
                                   width: "100%",
                                 },}}>Today</Button>
-                            <Button variant="plain" className="hover:border-b-2" sx={{
-                                position: "relative",
-                                px: 0,
-                                "&::after": {
-                                  content: '""',
-                                  position: "absolute",
-                                  left: 0,
-                                  bottom: 0,
-                                  height: "2px",
-                                  width: 0,
-                                  backgroundColor: "currentColor",
-                                  transition: "width 0.3s ease-in-out",
-                                },
-                                "&:hover::after": {
-                                  width: "100%",
-                                },}}>History</Button>
+                                    <Button variant="plain" className="hover:border-b-2" sx={{
+                                        position: "relative",
+                                        px: 0,
+                                        "&::after": {
+                                        content: '""',
+                                        position: "absolute",
+                                        left: 0,
+                                        bottom: 0,
+                                        height: "2px",
+                                        width: 0,
+                                        backgroundColor: "currentColor",
+                                        transition: "width 0.3s ease-in-out",
+                                        },
+                                        "&:hover::after": {
+                                        width: "100%",
+                                        },}} disabled>History</Button>  
                         </Box>
                         <Box component="section" >
                             <Box component="div" className="max-h-[60vh] overflow-y-scroll p-1 flex flex-col gap-3">
