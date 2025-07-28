@@ -1,134 +1,189 @@
+
+
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import {
+  Button,
+  FormControl,
+  Checkbox,
+  FormControlLabel,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+  InputAdornment,
+  Link,
+  Alert,
+  IconButton,
+} from '@mui/material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { AppProvider } from '@toolpad/core/AppProvider';
+import { SignInPage } from '@toolpad/core/SignInPage';
+import { useTheme } from '@mui/material/styles';
+
+const providers = [{ id: 'credentials', name: 'Email and Password' }];
 
 
-export default function TestPage(){
-
-const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-  {
-    id: 'population',
-    label: 'Population',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'density',
-    label: 'Density',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
-];
-
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
+function CustomEmailField() {
+  return (
+    <TextField
+      id="input-with-icon-textfield"
+      label="Email"
+      name="email"
+      type="email"
+      size="small"
+      required
+      fullWidth
+      slotProps={{
+        input: {
+          startAdornment: (
+            <InputAdornment position="start">
+              <AccountCircle fontSize="inherit" />
+            </InputAdornment>
+          ),
+        },
+      }}
+      variant="outlined"
+    />
+  );
 }
 
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
-];
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+function CustomPasswordField() {
+  const [showPassword, setShowPassword] = React.useState(false);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   return (
-    <Paper sx={{ width: '100%' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center" colSpan={2}>
-                Country
-              </TableCell>
-              <TableCell align="center" colSpan={3}>
-                Details
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ top: 57, minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+    <FormControl sx={{ my: 2 }} fullWidth variant="outlined">
+      <InputLabel size="small" htmlFor="outlined-adornment-password">
+        Password
+      </InputLabel>
+      <OutlinedInput
+        id="outlined-adornment-password"
+        type={showPassword ? 'text' : 'password'}
+        name="password"
+        size="small"
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              edge="end"
+              size="small"
+            >
+              {showPassword ? (
+                <VisibilityOff fontSize="inherit" />
+              ) : (
+                <Visibility fontSize="inherit" />
+              )}
+            </IconButton>
+          </InputAdornment>
+        }
+        label="Password"
       />
-    </Paper>
+    </FormControl>
   );
+}
+
+function CustomButton() {
+  return (
+    <Button
+      type="submit"
+      variant="outlined"
+      color="info"
+      size="small"
+      disableElevation
+      fullWidth
+      sx={{ my: 2 }}
+    >
+      Log In
+    </Button>
+  );
+}
+
+function SignUpLink() {
+  return (
+    <Link href="/" variant="body2">
+      Sign up
+    </Link>
+  );
+}
+
+function ForgotPasswordLink() {
+  return (
+    <Link href="/" variant="body2">
+      Forgot password?
+    </Link>
+  );
+}
+
+function Title() {
+  return <h2 style={{ marginBottom: 8 }}>Login</h2>;
+}
+
+function Subtitle() {
+  return (
+    <Alert sx={{ mb: 2, px: 1, py: 0.25, width: '100%' }} severity="warning">
+      We are investigating an ongoing outage.
+    </Alert>
+  );
+}
+
+function RememberMeCheckbox() {
+  const theme = useTheme();
+  return (
+    <FormControlLabel
+      label="Remember me"
+      control={
+        <Checkbox
+          name="remember"
+          value="true"
+          color="primary"
+          sx={{ padding: 0.5, '& .MuiSvgIcon-root': { fontSize: 20 } }}
+        />
+      }
+      slotProps={{
+        typography: {
+          color: 'textSecondary',
+          fontSize: theme.typography.pxToRem(14),
+        },
+      }}
+    />
+  );
+}
+export default function TestPage(){
+
+
+  const theme = useTheme();
+  return (
+    <AppProvider theme={theme}>
+      <SignInPage
+        signIn={(provider, formData) =>
+          alert(
+            `Logging in with "${provider.name}" and credentials: ${formData.get('email')}, ${formData.get('password')}, and checkbox value: ${formData.get('remember')}`,
+          )
+        }
+        slots={{
+          title: Title,
+          subtitle: Subtitle,
+          emailField: CustomEmailField,
+          passwordField: CustomPasswordField,
+          submitButton: CustomButton,
+          signUpLink: SignUpLink,
+          rememberMe: RememberMeCheckbox,
+          forgotPasswordLink: ForgotPasswordLink,
+        }}
+        slotProps={{ form: { noValidate: true } }}
+        providers={providers}
+      />
+    </AppProvider>
+  );
+
 
 }

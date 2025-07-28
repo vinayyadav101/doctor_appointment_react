@@ -6,12 +6,16 @@ import UserForm from "./layoutes/TestPage";
 import DoctorDeshBoard from "./Deshboards/DoctorDeshBoard";
 import AdminDeshBoard from "./Deshboards/adminDeshBoard";
 import TestPage from "./layoutes/TestPage";
+import SignInSide from "./pages/SignInSide";
+import SignUp from "./pages/SignUp";
 
 
 export default function App() {
   return (
     <Routes>
         <Route path="/test" element={<TestPage/>}  />
+        <Route path="/signin" element={<SignInSide/>}  />
+        <Route path="/signup" element={<SignUp/>}  />
         <Route path="/" element={<HomePage/>}  />
         <Route path="/appointment-form" element={<AppointmentForm />} />
         <Route path="/doctor-deshboard" element={<DoctorDeshBoard />} />
