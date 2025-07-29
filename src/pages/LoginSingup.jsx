@@ -16,7 +16,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { motion } from 'framer-motion';
 
 
-export default function TestPage(){
+export default function LoginSingup(){
 
   const [isSignup, setIsSignup] = useState(false);
   const [form, setForm] = useState({
@@ -53,7 +53,7 @@ export default function TestPage(){
         overflow: 'hidden',
         borderRadius: 3,
         mx: 'auto',
-        mt: 8,
+        my: 4,
         p: 0,
       }}
     >
