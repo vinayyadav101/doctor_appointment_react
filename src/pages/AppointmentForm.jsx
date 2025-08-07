@@ -1,11 +1,11 @@
-import { Box, Button, Checkbox, FormControlLabel, Input, Modal, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Checkbox, FormControlLabel, Input, Modal, TextField, Typography, useTheme } from "@mui/material";
+import { useContext, useState } from "react";
 import Sheet from '@mui/joy/Sheet';
 import { ModalClose } from "@mui/joy";
+import { mobileContext } from "../App";
 
 export default function AppointmentForm(){
-        const theme = useTheme();
-        const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+        const isSmall = useContext(mobileContext)
         const [open, setOpen] = useState(false);
         const [form, setForm] = useState({
             firstName: '',

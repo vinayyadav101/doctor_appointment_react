@@ -1,24 +1,36 @@
-import { Route, Routes } from "react-router-dom";
-import TemporaryDrawer from "./layoutes/TestPage";
-import HomePage from "./pages/HomePage";
-import AppointmentForm from "./pages/AppointmentForm";
-import UserForm from "./layoutes/TestPage";
-import DoctorDeshBoard from "./Deshboards/DoctorDeshBoard";
-import AdminDeshBoard from "./Deshboards/adminDeshBoard";
-import TestPage from "./layoutes/TestPage";
-import LoginSingup from "./pages/LoginSingup";
 
+import {createContext, useContext, useEffect} from 'react';
+import { useMediaQuery, useTheme } from "@mui/material";
+import AppRoutes from "./routes/AppRoutes";
+import { Toaster } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { ExpireyCheck, getProfile } from './redux/slices/authSlice';
+
+
+export const mobileContext = createContext() 
+export const baseUrl = ""
 
 export default function App() {
+        const dispatch = useDispatch()
+        const theme = useTheme();
+        const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+        
+useEffect(()=>{
+  (async function(){
+    const response = await dispatch(ExpireyCheck())
+
+    if(response?.payload?.code === 1){
+      await dispatch(getProfile())
+    }
+    
+  })()
+},[])
   return (
-    <Routes>
-        <Route path="/test" element={<TestPage/>}  />
-        <Route path="/login-signup" element={<LoginSingup/>}  />
-        <Route path="/" element={<HomePage/>}  />
-        <Route path="/appointment-form" element={<AppointmentForm />} />
-        <Route path="/doctor-deshboard" element={<DoctorDeshBoard />} />
-        <Route path="/admin-deshboard" element={<AdminDeshBoard />} />
-    </Routes>
+      <mobileContext.Provider value={isSmall}>
+        <Toaster />
+          <AppRoutes />
+      </mobileContext.Provider>
   )
 }
 

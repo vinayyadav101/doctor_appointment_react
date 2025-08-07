@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -14,9 +14,16 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { motion } from 'framer-motion';
+import { mobileContext } from '../App';
+import { login } from '../redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function LoginSingup(){
+  const isMobile = useContext(mobileContext)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [isSignup, setIsSignup] = useState(false);
   const [form, setForm] = useState({
@@ -25,24 +32,40 @@ export default function LoginSingup(){
     password: '',
   });
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    if (isSignup) {
-      console.log('Signup data:', form);
-    } else {
-      console.log('Login data:', {
-        email: form.email,
-        password: form.password,
-      });
+  const handleSubmit = async(e) => {
+
+    try {
+      if (e?.target?.id === 'login') {
+        
+          const response = await dispatch(login({
+            email : form.email,
+            password : form.password
+          }))
+
+          
+      } else {
+        console.log('Login data:', {
+          email: form.email,
+          password: form.password,
+        });
+      }
+    } catch (error) {
+      
     }
   };
 
+  useEffect(()=>{
+    setForm({
+      name:"",
+      email:"",
+      password:""
+    })
+  },[isSignup])
   return (
        <Paper
       elevation={6}
@@ -122,6 +145,7 @@ export default function LoginSingup(){
           <Button
             variant="contained"
             fullWidth
+            id='login'
             sx={{ mt: 1, borderRadius: '20px', py: 1 }}
             onClick={handleSubmit}
           >
@@ -191,6 +215,7 @@ export default function LoginSingup(){
           <Button
             variant="contained"
             fullWidth
+            id='signup'
             sx={{ mt: 1, borderRadius: '20px', py: 1 }}
             onClick={handleSubmit}
           >

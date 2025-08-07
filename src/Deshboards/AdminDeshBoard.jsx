@@ -37,6 +37,8 @@ import TableRow from "@mui/material/TableRow";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { desktopOS, valueFormatter } from "./webUsageStats";
+import AdminCard from "../components/AdminCard";
+import { adminCard } from "../rowfiles/Homepage";
 
 export default function AdminDeshBoard() {
   const theme = useTheme();
@@ -211,7 +213,11 @@ export default function AdminDeshBoard() {
           justifyContent: "center",
         }}
       >
-        <Card
+
+        {
+          adminCard.map((e,i)=> <AdminCard additionalCss={SmallSizeCss} Type={e.Type} TotalNum={e.TotalNum}/>)
+        }
+        {/* <Card
           variant="outlined"
           orientation="horizontal"
           sx={{
@@ -338,7 +344,7 @@ export default function AdminDeshBoard() {
               Total Doctors
             </Typography>
           </CardContent>
-        </Card>
+        </Card> */}
       </Box>
 
       {/* second div */}

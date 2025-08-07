@@ -19,15 +19,19 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ListItemText from '@mui/material/ListItemText';
 import { BottomNavigation, BottomNavigationAction, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon } from '@mui/material';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const pages = ['Inbox', 'Starred', 'Send email', 'Drafts'];
 const mails = ['All mail', 'Trash', 'Spam'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'history' , "payments"];
 
 
 
 
-export default function Layout({children}){
+export default function Layout(){
+  const {profile , isLogin} = useSelector((state)=>state.auth)
+  const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [open, setOpen] = useState(false);
@@ -78,6 +82,9 @@ export default function Layout({children}){
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const navigatePages = (e) =>{
+      navigate(`/${e.target.name}`)
+  }
 
 
 
@@ -166,7 +173,7 @@ export default function Layout({children}){
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={profile?.userName || "null"} src={profile?.avatar?.url_link || "/static/images/avatar/2.jpg"} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -186,16 +193,25 @@ export default function Layout({children}){
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} name={setting} onClick={navigatePages}>
                   <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                 </MenuItem>
               ))}
+              {
+                !isLogin ? 
+                  <MenuItem  onClick={handleCloseUserMenu}>
+                    <Typography sx={{ textAlign: 'center' }}>"logOut</Typography>
+                  </MenuItem> :
+                  <MenuItem name="login-signup" onClick={navigatePages}>
+                    <Typography sx={{ textAlign: 'center' }}>"login"</Typography>
+                  </MenuItem>
+              }
             </Menu>
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
-              {children}
+              <Outlet />
     {/* fottor for both screen */}
    <footer className="w-[100%] ">
       <div className='footer sm:footer-horizontal  my-bg-blue text-white tracking-widest text-lg p-10'>
