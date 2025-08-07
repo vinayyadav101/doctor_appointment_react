@@ -12,7 +12,7 @@ const initialState = {
 export const getProfile = createAsyncThunk('/user/auth/profile' , async()=>{
     try {
         
-        const response = await instance.get('api/v1/user/profile')
+        const response = await instance.get('/api/v1/user/profile')
 
         return response.data
     } catch (error) {
@@ -21,7 +21,7 @@ export const getProfile = createAsyncThunk('/user/auth/profile' , async()=>{
 })
 export const ExpireyCheck = createAsyncThunk('/user/auth/exp',async()=>{
     try {
-        const response = await instance.get('api/v1/user/cookie_check')
+        const response = await instance.get('/api/v1/user/cookie_check')
             return response.data
     } catch (error) {
         return error?.response?.data
@@ -31,7 +31,7 @@ export const ExpireyCheck = createAsyncThunk('/user/auth/exp',async()=>{
 export const login = createAsyncThunk('/login/auth',async(data)=>{
     
     try {
-        const response = instance.post('api/v1/user/login',data)
+        const response = instance.post('/api/v1/user/login',data)
     
         toast.promise(response , {
             success:"user login successfully",
@@ -44,6 +44,22 @@ export const login = createAsyncThunk('/login/auth',async(data)=>{
         toast.error(error?.response?.data?.msg || error?.message)
     }
 }) 
+
+export const logoutUser = createAsyncThunk('/logout' , async()=>{
+    try {
+        const response =  instance.get('/api/v1/user/logout')
+
+        toast.promise(response , {
+            success:"user logout successfully",
+            loading:"please wait user data validation"
+        })
+
+        return (await response).data
+    } catch (error) {
+        toast.error(error?.response?.data?.msg || error?.message)
+        
+    }
+})
 
 const authSlice = createSlice({
     name:'auth',
@@ -74,6 +90,13 @@ const authSlice = createSlice({
                 state.profile = payload.data 
             }
             
+        })
+        builder.addCase(logoutUser.fulfilled , (state , {payload}) => {
+            if (payload?.code === 1) {
+                state.isLogin = false
+                state.profile = null
+                state.role = null
+            }
         })
     }
 })

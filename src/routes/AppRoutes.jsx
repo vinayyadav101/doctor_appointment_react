@@ -6,6 +6,7 @@ import DoctorDeshBoard from "../Deshboards/DoctorDeshBoard";
 import AdminDeshBoard from "../Deshboards/AdminDeshBoard";
 import Layout from "../layoutes/Home";
 import AuthRoute from "../helpers/AuthRoute";
+import NotFound from "../pages/notFound";
 
 export default function AppRoutes(){
     return(
@@ -14,10 +15,11 @@ export default function AppRoutes(){
                 <Route path="/login-signup" element={<LoginSingup/>}  />
                 <Route path="/" element={<HomePage/>}  />
                 <Route element={<AuthRoute roles={["admin , user"]}/>}>
-                    <Route path="/appointment-form" element={<AppointmentForm />} />
                 </Route>
+                    <Route path="/appointment-form" element={<AppointmentForm />} />
                 <Route path="/doctor-deshboard" element={<DoctorDeshBoard />} />
                 <Route path="/admin-deshboard" element={<AdminDeshBoard />} />
+                <Route path="/*" element={<NotFound />} />
             </Route>
         </Routes>
     )

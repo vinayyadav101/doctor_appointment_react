@@ -20,11 +20,12 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ListItemText from '@mui/material/ListItemText';
 import { BottomNavigation, BottomNavigationAction, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../redux/slices/authSlice';
 
 const pages = ['Inbox', 'Starred', 'Send email', 'Drafts'];
 const mails = ['All mail', 'Trash', 'Spam'];
-const settings = ['Profile', 'history' , "payments"];
+const settings = ['profile', 'history' , "payments"];
 
 
 
@@ -32,6 +33,7 @@ const settings = ['Profile', 'history' , "payments"];
 export default function Layout(){
   const {profile , isLogin} = useSelector((state)=>state.auth)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [open, setOpen] = useState(false);
@@ -82,12 +84,11 @@ export default function Layout(){
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const navigatePages = (e) =>{
-      navigate(`/${e.target.name}`)
+  
+  async function logOut(){
+      handleCloseUserMenu()
+      await dispatch(logoutUser())
   }
-
-
-
   
   return (
 <div className='min-h-[100vh] bg-white text-black'>
@@ -193,17 +194,23 @@ export default function Layout(){
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} name={setting} onClick={navigatePages}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                <MenuItem key={setting} id={setting} onClick={()=> {
+                  navigate(`/user/${setting}`)
+                  handleCloseUserMenu()
+                }}>
+                  <Typography sx={{ textAlign: 'center' }}>{setting.toUpperCase()}</Typography>
                 </MenuItem>
               ))}
               {
-                !isLogin ? 
-                  <MenuItem  onClick={handleCloseUserMenu}>
-                    <Typography sx={{ textAlign: 'center' }}>"logOut</Typography>
+                isLogin ? 
+                  <MenuItem  onClick={logOut}>
+                    <Typography sx={{ textAlign: 'center' }}>LOGOUT</Typography>
                   </MenuItem> :
-                  <MenuItem name="login-signup" onClick={navigatePages}>
-                    <Typography sx={{ textAlign: 'center' }}>"login"</Typography>
+                  <MenuItem name="login-signup" onClick={()=>{
+                    navigate('/login-signup') 
+                    handleCloseUserMenu()
+                    } }>
+                    <Typography sx={{ textAlign: 'center' }}>LOGIN & SIGNUP</Typography>
                   </MenuItem>
               }
             </Menu>

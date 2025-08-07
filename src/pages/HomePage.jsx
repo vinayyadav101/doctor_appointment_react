@@ -1,14 +1,18 @@
 import { Box, Button, ButtonBase, ButtonGroup, CardMedia, Link, Rating, Typography, useMediaQuery, useTheme } from '@mui/material'
 import BanerImage from '../asset/Baner.png'
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { mobileContext } from '../App';
-import { specialities, topethreeDoctor } from '../rowfiles/Homepage';
+import { specialities} from '../rowfiles/Homepage';
 import DoctorCard from '../components/DoctorCard';
 import SpecilitCrad from '../components/SpecilitCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { topThreeDoctorData } from '../redux/slices/doctorDataSlice';
 
 export default function HomePage() {
     const emergencyNumber = 7046816857;
+    const dispatch = useDispatch()
+    const {topThree} = useSelector(state => state.doctor)
     const isSmall = useContext(mobileContext)
 
     const SmallSizeCss = isSmall ?{
@@ -25,6 +29,11 @@ export default function HomePage() {
         fontSize:'text-xl'
     }
 
+    useEffect(()=>{
+        (async function(){
+            await dispatch(topThreeDoctorData())
+        })()
+    },[])
     
     return (
         <div className="relative mb-5">
@@ -114,13 +123,13 @@ export default function HomePage() {
                 </Box>
                 <Box component="section" sx={{ p: 2, textAlign:"center", display:'flex', flexDirection:'row', flexWrap:'wrap', gap:isSmall ? 3 : 6 , justifyContent:"center"}}>
                     {
-                        topethreeDoctor.map((e,i)=><DoctorCard 
+                        topThree?.map((e,i)=><DoctorCard 
                         key={i}
-                        name={e.name} 
-                        id={e.id} 
-                        specility={e.specility} 
-                        imageUrl={e.imageUrl}
-                        rating={e.rating} 
+                        name={e.doctorName} 
+                        id={e._id} 
+                        specility={e.specialty} 
+                        imageUrl={e?.avatar?.url_link}
+                        rating={3.5} 
                         additionalCss={SmallSizeCss.fontSize}
                         />)
                     }
