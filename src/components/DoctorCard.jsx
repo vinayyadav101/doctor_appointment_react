@@ -5,7 +5,7 @@ export default function DoctorCard({name , specility , rating ,id ,imageUrl , ad
     const navigate = useNavigate()
     return(
         <div 
-                        className='flex flex-col p-2   relative gap-2 max-w-[300px] mx-h-[400px] justify-center items-center shadow-xl/30 rounded-xl py-4 ring '
+                        className='flex flex-col p-2   relative gap-2 max-w-[300px] mx-h-[400px] justify-center items-center shadow-xl/30 rounded-xl py-4 ring'
                     >
                         <CardMedia
                           component="img"

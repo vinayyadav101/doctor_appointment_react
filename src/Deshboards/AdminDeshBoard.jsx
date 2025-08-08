@@ -8,19 +8,9 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { FaUserDoctor } from "react-icons/fa6";
-import { LuCalendarClock } from "react-icons/lu";
-import { BsCalendar2MonthFill } from "react-icons/bs";
-import { MdPendingActions } from "react-icons/md";
+
 import SearchIcon from "@mui/icons-material/Search";
-import {
-  AspectRatio,
-  Link,
-  Card,
-  CardContent,
-  Chip,
-  Typography,
-} from "@mui/joy";
+
 
 // table imports //
 
