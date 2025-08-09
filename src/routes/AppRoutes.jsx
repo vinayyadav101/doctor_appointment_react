@@ -6,8 +6,10 @@ import DoctorDeshBoard from "../Deshboards/DoctorDeshBoard";
 import AdminDeshBoard from "../Deshboards/AdminDeshBoard";
 import Layout from "../layoutes/Home";
 import AuthRoute from "../helpers/AuthRoute";
-import NotFound from "../pages/notFound";
+import NotFound from "../pages/NotFound";
 import SearchDoctors from "../pages/SearchDoctors";
+import Test from "../Test";
+import DoctorProfile from "../pages/DoctorProfile";
 
 export default function AppRoutes(){
     return(
@@ -19,9 +21,11 @@ export default function AppRoutes(){
                 </Route>
                     <Route path="/appointment-form" element={<AppointmentForm />} />
                     <Route path="/search/doctors" element={<SearchDoctors />} />
+                    <Route path="/doctor/profile" element={<DoctorProfile />} />
                 <Route path="/doctor-deshboard" element={<DoctorDeshBoard />} />
                 <Route path="/admin-deshboard" element={<AdminDeshBoard />} />
                 <Route path="/*" element={<NotFound />} />
+                <Route path="/test" element={<Test />} />
             </Route>
         </Routes>
     )

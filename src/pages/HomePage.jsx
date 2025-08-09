@@ -125,11 +125,7 @@ export default function HomePage() {
                     {
                         topThree?.map((e,i)=><DoctorCard 
                         key={i}
-                        name={e.doctorName} 
-                        id={e._id} 
-                        specility={e.specialty} 
-                        imageUrl={e?.avatar?.url_link}
-                        rating={3.5} 
+                        details={e}
                         additionalCss={SmallSizeCss.fontSize}
                         />)
                     }
